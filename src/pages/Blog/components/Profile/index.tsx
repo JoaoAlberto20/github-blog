@@ -1,4 +1,3 @@
-import { memo } from 'react'
 import { BsBoxArrowUpRight, BsGithub } from 'react-icons/bs'
 import { FiUsers } from 'react-icons/fi'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
@@ -11,7 +10,7 @@ import {
   ProfileImg,
 } from './styles'
 
-function ProfileSection() {
+export function Profile() {
   const user = useContextSelector(BlogContext, (context) => context.user)
   return (
     <ProfileContainer>
@@ -49,5 +48,3 @@ function ProfileSection() {
     </ProfileContainer>
   )
 }
-
-export const Profile = memo(ProfileSection)

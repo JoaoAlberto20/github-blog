@@ -27,6 +27,7 @@ export const CardPostContainer = styled.div`
       align-self: flex-start;
       text-align: right;
       margin-top: 0.3rem;
+      color: ${(props) => props.theme['base-text']};
     }
   }
 

@@ -3,7 +3,7 @@ import { Posts } from './components/Post'
 import { Profile } from './components/Profile'
 import { HomeContainer } from './styles'
 
-export function Home() {
+export function Blog() {
   return (
     <HomeContainer>
       <Profile />
