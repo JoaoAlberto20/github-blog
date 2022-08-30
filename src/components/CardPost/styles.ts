@@ -4,7 +4,6 @@ export const CardPostContainer = styled.div`
   padding: 2rem;
   background: ${(props) => props.theme['base-post']};
   border-radius: 10px;
-  cursor: pointer;
   transition: border 1s;
 
   &:hover {
@@ -12,8 +11,7 @@ export const CardPostContainer = styled.div`
   }
 
   header {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
+    display: flex;
     gap: 1rem;
 
     strong {
@@ -21,6 +19,7 @@ export const CardPostContainer = styled.div`
       line-height: 2rem;
       font-weight: bold;
       color: ${(props) => props.theme['base-title']};
+      flex: 1;
     }
 
     span {
@@ -44,6 +43,8 @@ export const CardPostContainer = styled.div`
       -webkit-line-clamp: 4;
       overflow: hidden;
       -webkit-box-orient: vertical;
+
+      color: ${(props) => props.theme['base-text']};
     }
   }
 `

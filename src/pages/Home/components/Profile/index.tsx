@@ -1,6 +1,9 @@
+import { memo } from 'react'
 import { BsBoxArrowUpRight, BsGithub } from 'react-icons/bs'
 import { FiUsers } from 'react-icons/fi'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
+import { useContextSelector } from 'use-context-selector'
+import { BlogContext } from '../../../../contexts/BlogContext'
 import {
   ProfileContainer,
   ProfileContent,
@@ -8,45 +11,43 @@ import {
   ProfileImg,
 } from './styles'
 
-export function Profile() {
+function ProfileSection() {
+  const user = useContextSelector(BlogContext, (context) => context.user)
   return (
     <ProfileContainer>
       <ProfileImg>
-        <img
-          src="https://avatars.githubusercontent.com/u/97991895?v=4"
-          alt=""
-        />
+        <img src={user?.img} alt={user?.name} />
       </ProfileImg>
       <ProfileContent>
         <header>
-          <h2>João Alberto no da Silva</h2>
-          <a href="#">
+          <h2>{user?.name}</h2>
+          <a href={user?.githubUrl} target="_blanck">
             GITHUB
             <BsBoxArrowUpRight />
           </a>
         </header>
         <article>
-          <p>
-            Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-            viverra massa quam dignissim aenean malesuada suscipit. Nunc,
-            volutpat pulvinar vel mass.
-          </p>
+          <p>{user?.bio}</p>
         </article>
         <ProfileContentIcons>
-          <a href="">
+          <a href={user?.githubUrl}>
             <BsGithub />
-            cameronwll
+            {user?.login}
           </a>
-          <a href="">
-            <HiOutlineOfficeBuilding />
-            RocketSeat
-          </a>
-          <a href="#">
+          {user?.company && (
+            <span>
+              <HiOutlineOfficeBuilding />
+              RocketSeat
+            </span>
+          )}
+          <span>
             <FiUsers />
-            32 Seguidores
-          </a>
+            {`${user?.followers} Seguidores`}
+          </span>
         </ProfileContentIcons>
       </ProfileContent>
     </ProfileContainer>
   )
 }
+
+export const Profile = memo(ProfileSection)

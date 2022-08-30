@@ -44,6 +44,14 @@ export const ProfileContent = styled.div`
       color: ${(props) => props.theme.blue};
       font-weight: bold;
       gap: 0.5rem;
+
+      &:hover {
+        border-bottom: 1px solid ${(props) => props.theme.blue};
+      }
+
+      svg {
+        line-height: 0;
+      }
     }
   }
 `
@@ -54,7 +62,8 @@ export const ProfileContentIcons = styled.div`
   margin-top: 1.5rem;
   align-items: center;
 
-  a {
+  a,
+  span {
     font-weight: 400;
     font-size: 16px;
     line-height: 160%;
