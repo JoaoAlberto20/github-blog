@@ -7,6 +7,15 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: 0;
   }
 
+  input {
+    outline: none;
+    
+  }
+
+  a {
+    text-decoration: none;
+  }
+
   body {
     background: ${(props) => props.theme['base-background']};
     color: ${(props) => props.theme['base-text']}
