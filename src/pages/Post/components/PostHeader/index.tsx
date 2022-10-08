@@ -1,9 +1,10 @@
 import {
   faCalendar,
   faChevronLeft,
-  faComment,
+  faComment
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaGithub } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { ExternalLink } from '../../../../components/ExternalLink'
 import { Loading } from '../../../../components/Loading'
@@ -48,7 +49,10 @@ export function PostHeader({ postData, isLoading }: PostHeaderProps) {
 
           <h1>{postData.title}</h1>
           <ul>
-            <li>{postData.user.login}</li>
+            <li>
+              <FaGithub />
+              {postData.user.login}
+            </li>
             <li>
               <FontAwesomeIcon icon={faCalendar} />
               {formattedDate}

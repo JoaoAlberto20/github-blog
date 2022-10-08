@@ -1,6 +1,7 @@
 import { faBuilding, faUserGroup } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useCallback, useEffect, useState } from 'react'
+import { FaGithub } from 'react-icons/fa'
 import { ExternalLink } from '../../../../components/ExternalLink'
 import { api } from '../../../../lib/axios'
 import { ProfileContainer, ProfileDetails, ProfilePicture } from './styles'
@@ -53,7 +54,7 @@ export function Profile() {
         <p>{profileData.bio}</p>
         <ul>
           <li>
-            <FontAwesomeIcon icon={faBuilding} />
+            <FaGithub />
             {profileData.login}
           </li>
           {profileData?.company && (
