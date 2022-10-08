@@ -1,4 +1,3 @@
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import {
   faCalendar,
   faChevronLeft,
@@ -49,10 +48,7 @@ export function PostHeader({ postData, isLoading }: PostHeaderProps) {
 
           <h1>{postData.title}</h1>
           <ul>
-            <li>
-              <FontAwesomeIcon icon={faGithub} />
-              {postData.user.login}
-            </li>
+            <li>{postData.user.login}</li>
             <li>
               <FontAwesomeIcon icon={faCalendar} />
               {formattedDate}
