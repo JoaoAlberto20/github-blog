@@ -103,7 +103,7 @@ Apesar de serem poucas funcionalidades, eu aprendi relembrar conceitos como:
     ```
 
   O aplicativo sera executado em modo de desenvolvimento.
-  Abrindo na porta padrão que o React usa: <http://localhost:3000/> em seu navegador.
+  Abrindo na porta padrão que o React usa: <http://localhost:5173/> em seu navegador.
 
   </details>
 <br />
