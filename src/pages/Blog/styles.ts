@@ -1,15 +1,9 @@
 import styled from 'styled-components'
 
-export const HomeContainer = styled.main`
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    h2 {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: ${(props) => props.theme['base-subTitle']};
-    }
-  }
+export const PostsListContainer = styled.section`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  gap: 2rem;
+  margin-bottom: 14rem;
 `

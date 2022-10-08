@@ -1,21 +1,21 @@
-import { useContextSelector } from 'use-context-selector'
-import { CardPost } from '../../../../components/CardPost'
-import { BlogContext } from '../../../../contexts/BlogContext'
-import { PostsContainer } from './styles'
+import { IPost } from '../..'
+import { relativeDateFormatter } from '../../../../utils/formatter'
+import { PostContainer } from './styles'
 
-export function Posts() {
-  const posts = useContextSelector(BlogContext, (context) => context.posts)
+interface PostProps {
+  post: IPost
+}
+
+export function Post({ post }: PostProps) {
+  const formattedDate = relativeDateFormatter(post.created_at)
+
   return (
-    <PostsContainer>
-      {posts?.map((post) => (
-        <CardPost
-          key={post.id}
-          title={post.title}
-          body={post.body}
-          createdAt={post.createdAt}
-          id={post.id}
-        />
-      ))}
-    </PostsContainer>
+    <PostContainer to={`/post/${post.number}`}>
+      <div>
+        <strong>{post.title}</strong>
+        <span>{formattedDate}</span>
+      </div>
+      <p>{post.body}</p>
+    </PostContainer>
   )
 }

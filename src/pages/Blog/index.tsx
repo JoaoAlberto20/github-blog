@@ -1,18 +1,62 @@
-import { FormSearch } from './components/FormSearch'
-import { Posts } from './components/Post'
+import { useCallback, useEffect, useState } from 'react'
+import { Loading } from '../../components/Loading'
+import { api } from '../../lib/axios'
+import { Post } from './components/Post'
 import { Profile } from './components/Profile'
-import { HomeContainer } from './styles'
+import { SearchInput } from './components/SearchInput'
+import { PostsListContainer } from './styles'
+
+const username = import.meta.env.VITE_GITHUB_USERNAME
+const repoName = import.meta.env.VITE_GITHUB_REPONAME
+
+export interface IPost {
+  title: string
+  body: string
+  created_at: string
+  number: number
+  html_url: string
+  comments: number
+  user: {
+    login: string
+  }
+}
 
 export function Blog() {
+  const [posts, setPosts] = useState<IPost[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  const getPosts = useCallback(async (query: string = '') => {
+    try {
+      setIsLoading(true)
+      const response = await api.get('search/issues', {
+        params: {
+          q: `repo:${username}/${repoName}`,
+        },
+      })
+
+      setPosts(response.data.items)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    getPosts()
+  }, [getPosts])
+
   return (
-    <HomeContainer>
+    <>
       <Profile />
-      <header>
-        <h2>Publicações</h2>
-        <span>6 publicações</span>
-      </header>
-      <FormSearch />
-      <Posts />
-    </HomeContainer>
+      <SearchInput postsLength={posts.length} getPosts={getPosts} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <PostsListContainer>
+          {posts.map((post) => (
+            <Post key={post.number} post={post} />
+          ))}
+        </PostsListContainer>
+      )}
+    </>
   )
 }

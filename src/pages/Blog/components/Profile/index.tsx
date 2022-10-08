@@ -1,50 +1,73 @@
-import { BsBoxArrowUpRight, BsGithub } from 'react-icons/bs'
-import { FiUsers } from 'react-icons/fi'
-import { HiOutlineOfficeBuilding } from 'react-icons/hi'
-import { useContextSelector } from 'use-context-selector'
-import { BlogContext } from '../../../../contexts/BlogContext'
-import {
-  ProfileContainer,
-  ProfileContent,
-  ProfileContentIcons,
-  ProfileImg,
-} from './styles'
+import { faBuilding, faUserGroup } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useCallback, useEffect, useState } from 'react'
+import { ExternalLink } from '../../../../components/ExternalLink'
+import { api } from '../../../../lib/axios'
+import { ProfileContainer, ProfileDetails, ProfilePicture } from './styles'
+
+const username = import.meta.env.VITE_GITHUB_USERNAME
+
+interface ProfileData {
+  login: string
+  bio: string
+  avatar_url: string
+  html_url: string
+  name: string
+  company?: string
+  followers: number
+}
 
 export function Profile() {
-  const user = useContextSelector(BlogContext, (context) => context.user)
+  const [profileData, setProfileData] = useState<ProfileData>({} as ProfileData)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const getProfileData = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      const response = await api.get(`/users/${username}`)
+
+      setProfileData(response.data)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    getProfileData()
+  }, [getProfileData])
+
   return (
     <ProfileContainer>
-      <ProfileImg>
-        <img src={user?.img} alt={user?.name} />
-      </ProfileImg>
-      <ProfileContent>
+      <ProfilePicture src={profileData.avatar_url} />
+
+      <ProfileDetails>
         <header>
-          <h2>{user?.name}</h2>
-          <a href={user?.githubUrl} target="_blanck">
-            GITHUB
-            <BsBoxArrowUpRight />
-          </a>
+          <h1>{profileData.name}</h1>
+
+          <ExternalLink
+            text="Github"
+            href={profileData.html_url}
+            target="_blank"
+          />
         </header>
-        <article>
-          <p>{user?.bio}</p>
-        </article>
-        <ProfileContentIcons>
-          <a href={user?.githubUrl}>
-            <BsGithub />
-            {user?.login}
-          </a>
-          {user?.company && (
-            <span>
-              <HiOutlineOfficeBuilding />
-              RocketSeat
-            </span>
+        <p>{profileData.bio}</p>
+        <ul>
+          <li>
+            <FontAwesomeIcon icon={faBuilding} />
+            {profileData.login}
+          </li>
+          {profileData?.company && (
+            <li>
+              <FontAwesomeIcon icon={faBuilding} />
+              {profileData.company}
+            </li>
           )}
-          <span>
-            <FiUsers />
-            {`${user?.followers} Seguidores`}
-          </span>
-        </ProfileContentIcons>
-      </ProfileContent>
+          <li>
+            <FontAwesomeIcon icon={faUserGroup} />
+            {profileData.followers} seguidores
+          </li>
+        </ul>
+      </ProfileDetails>
     </ProfileContainer>
   )
 }
